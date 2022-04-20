@@ -1,0 +1,122 @@
+least frequent
+
+#include <stdio.h>
+
+int main()
+{
+   printf("Enter the size of string: ");
+   int n;
+   scanf("%d",&n);
+   int a[n];
+   printf("Enter the order: ");
+   for(int i=0;i<n;i++){
+       scanf("%d",&a[i]);
+   }
+   printf("Enter the size of the frame: ");
+   int k;
+   scanf("%d",&k);
+   int p[k][2];
+   for(int i=0;i<k;i++){
+       p[i][0]=-1; //processes
+       p[i][1]=-1; //counter of order
+   }
+   int pf=0,count=0;
+   for(int i=0;i<n;i++){
+       int flag=0;
+       for(int j=0;j<k;j++){
+            if(p[j][0]==a[i]){
+                           flag=1;
+                           count++;
+                            p[j][1]=count;
+                           break;
+                       }
+       }
+       if(flag==0){
+           pf++;
+           int min=1000,index=0;
+           for(int j=0;j<k;j++){
+               if(p[j][1]==-1){
+                   count++;
+                   p[j][1]=count;
+                   break;
+               }else if(p[j][1]<min){
+                   min=p[j][1];
+                   index=j;
+               }
+           }
+           p[index][0]=a[i];
+           count++;
+           p[index][1]=count;
+       }
+   }
+   printf("%d",pf);
+
+    return 0;
+}
+
+most recent
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+
+int main()
+{
+   printf("Enter the size of string: ");
+   int n;
+   scanf("%d",&n);
+   int a[n];
+   printf("Enter the order: ");
+   for(int i=0;i<n;i++){
+       scanf("%d",&a[i]);
+   }
+   printf("Enter the size of the frame: ");
+   int k;
+   scanf("%d",&k);
+   int p[k][2];
+   for(int i=0;i<k;i++){
+       p[i][0]=-1; //processes
+       p[i][1]=-1; //counter of order
+   }
+   int pf=0,count=0;
+   for(int i=0;i<n;i++){
+       int flag=0;
+       for(int j=0;j<k;j++){
+            if(p[j][0]==a[i]){
+                           flag=1;
+                           count++;
+                            p[j][1]=count;
+                           break;
+                       }
+       }
+       if(flag==0){
+           pf++;
+           int max=-1,index=0;
+           for(int j=0;j<k;j++){
+               if(p[j][1]==-1){
+                   p[j][0]=a[i];
+                   count++;
+                   flag=1;
+                   p[j][1]=count;
+                   break;
+               }else if(p[j][1]>max){
+                   max=p[j][1];
+                   index=j;
+               }
+           }
+           if(flag==0){
+           p[index][0]=a[i];
+           count++;
+           p[index][1]=count;
+           }
+       }
+   }
+   printf("No. of page faults are: %d",pf);
+
+    return 0;
+}
